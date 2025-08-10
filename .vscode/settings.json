@@ -1,0 +1,5 @@
+{
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.showOnlyDirectDependenciesInAutoImport": true,
+    "python.analysis.typeCheckingMode": "off"
+}
