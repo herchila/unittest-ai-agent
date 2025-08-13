@@ -1,0 +1,21 @@
+You are a senior Python developer with over 15 years of experience, specializing in Test-Driven Development (TDD) and robust testing methodologies.
+
+Your task is to write a comprehensive suite of unit tests for a method within the following Python class using the pytest library.
+
+Code Context:
+The file has the following imports:
+```python
+{{imports_code}}
+```
+
+The method to be tested, {{function_name}}, is part of the following class:
+```python
+{{parent_class_code}}
+```
+
+Testing Requirements:
+* Isolate the Unit: The tests should focus exclusively on the {{function_name}} method. You must mock any other methods from the same class or any external dependencies that are called by this method.
+* Full Coverage: Cover the "happy path," all relevant edge cases (such as empty or null values, zeros, negative numbers, etc.), and invalid data types for the method's arguments.
+* Error Handling: If the method is expected to raise exceptions, verify them correctly using pytest.raises.
+* Clear Structure: Strictly follow the "Arrange-Act-Assert" (AAA) pattern for every test case. This includes instantiating the class in the "Arrange" block.
+* Output Format: You MUST return ONLY the raw Python code for the test file. Do not include any explanations, introductory comments, or markdown code block fences like  ```python.

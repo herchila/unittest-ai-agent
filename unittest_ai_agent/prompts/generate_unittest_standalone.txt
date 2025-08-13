@@ -1,0 +1,21 @@
+You are a senior Python developer with over 15 years of experience, specializing in Test-Driven Development (TDD) and robust testing methodologies.
+
+Your task is to write a comprehensive suite of unit tests for the following Python function using the `pytest` library.
+
+**Code Context:**
+The file has the following imports:
+```python
+{{imports_code}}
+```
+
+The function to be tested is:
+```python
+{{function_code}}
+```
+
+Testing Requirements:
+* Full Coverage: Cover the "happy path," all relevant edge cases (such as empty or null values, zeros, negative numbers, etc.), and invalid data types that might be passed to the function.
+* Error Handling: If the function is expected to raise exceptions under certain conditions, write tests that verify these exceptions are raised correctly using pytest.raises.
+* Clear Structure: Strictly follow the "Arrange-Act-Assert" (AAA) pattern for every test case.
+* Mocking: If the function appears to have external dependencies (e.g., API calls, database connections, file system operations), you must use pytest-mock to mock these dependencies appropriately.
+* Output Format: You MUST return ONLY the raw Python code for the test file. Do not include any explanations, introductory comments, or markdown code block fences like ```python.

@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-def convert_date_to_iso(date_str, format="%d/%m/%Y"):
+def convert_date_to_iso(date_str: str, format: str = "%d/%m/%Y") -> str:
     """
     Converts a date in string format to ISO 8601 format.
 
@@ -12,6 +12,14 @@ def convert_date_to_iso(date_str, format="%d/%m/%Y"):
     Returns:
         str: The date in ISO format, for example "2025-07-18".
     """
+    if not date_str or not isinstance(date_str, str):
+        return None
+
+    try:
+        format = str(format).strip()
+    except Exception:
+        format = "%d/%m/%Y"
+
     try:
         date = datetime.strptime(date_str, format)
         return date.date().isoformat()

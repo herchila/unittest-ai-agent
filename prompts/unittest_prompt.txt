@@ -1,4 +1,0 @@
-Given the following Python function, write a unit test using pytest. 
-Only return the test code. Use assert statements and provide reasonable test cases.
-
-{{function_code}}
