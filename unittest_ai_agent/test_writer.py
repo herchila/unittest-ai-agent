@@ -19,6 +19,14 @@ def postprocess_test_code(test_code: str, function_name: str, module_name: str) 
     - Replaces the module name (your_module → module_name).
     - Replaces the function name if LLM used a different one (detected by regex).
     - Adds optional warning docstring.
+    
+    Args:
+        test_code (str): The generated test code.
+        function_name (str): The name of the function being tested.
+        module_name (str): The name of the module containing the function.
+
+    Returns:
+        str: The postprocessed test code.
     """
 
     # Replaces the import module

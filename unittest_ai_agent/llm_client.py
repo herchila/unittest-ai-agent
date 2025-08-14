@@ -8,13 +8,19 @@ api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=api_key)
 
 
-def generate_test_code(function_code: str, prompt_template: str) -> str:
-    prompt = prompt_template.replace("{{function_code}}", function_code)
+def generate_test_code(prompt: str) -> str:
+    """Generate test code for a given function.
 
+    Args:
+        prompt (str): The prompt containing the function code and context.
+
+    Returns:
+        str: The generated test code.
+    """
+    import ipdb; ipdb.set_trace()
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
-            {"role": "system", "content": "You are an expert Python testing assistant."},
             {"role": "user", "content": prompt}
         ],
         temperature=0.3,
