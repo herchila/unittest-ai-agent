@@ -67,12 +67,16 @@ This project is under active development. Below is a summary of our progress and
 
 [ x ] Basic CLI: A simple command-line interface to input a file and receive the generated test file.
 
+---
+
 ### 🎯 Phase 2: Multi-Agent Collaboration & Feedback Loop
 [ ] Introduce "QA Engineer" Agent: Develop a second agent responsible for reviewing, validating, and executing the generated tests.
 
 [ ] Implement Test Execution Tool: Create a secure tool for the QA Agent to programmatically run pytest, capture results, and parse code coverage reports.
 
 [ ] Establish Collaborative Framework (CrewAI): Refactor the agent logic into a Crew to manage the feedback loop, allowing the Dev Agent to fix tests based on the QA Agent's feedback until a target coverage is achieved.
+
+---
 
 ### 🏗️ Phase 3: API-First Architecture & State Management
 [ ] Expose via API: Wrap the agent crew in a FastAPI application to make it accessible as a service.
@@ -81,6 +85,7 @@ This project is under active development. Below is a summary of our progress and
 
 [ ] Containerization: Create a Dockerfile and docker-compose.yml to ensure a consistent and reproducible environment for the entire application stack.
 
+---
 
 ### ✨ Future
 [ ] LLMOps & Observability: Integrate with tools like LangSmith to trace, debug, and evaluate the performance of the agent interactions.
@@ -90,6 +95,8 @@ This project is under active development. Below is a summary of our progress and
 [ ] Multi-Language Support: Expand capabilities beyond Python to include other languages like JavaScript/TypeScript and Go.
 
 [ ] Automated Code Refactoring: Empower the Dev Agent to suggest fixes in the source code itself, not just the tests.
+
+---
 
 ## License
 
