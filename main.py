@@ -32,7 +32,6 @@ def main():
         function_name = func_data["function_name"]
         print(f"\nProcessing: `def {function_name}(...)`...")
 
-        import ipdb; ipdb.set_trace()
         if func_data["parent_class_code"]:
             print(f" Parent class found: {func_data['parent_class_code'].splitlines()[0]}")
             prompt_template = load_prompt(f"{FILE_PATH_PROMPT}/generate_unittest_class.txt")

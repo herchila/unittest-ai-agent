@@ -17,7 +17,7 @@ def generate_test_code(prompt: str) -> str:
     Returns:
         str: The generated test code.
     """
-    import ipdb; ipdb.set_trace()
+
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
