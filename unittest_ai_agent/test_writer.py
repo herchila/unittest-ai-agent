@@ -2,14 +2,14 @@ import os
 import re
 
 
-def write_test_file(function_name, test_code, output_dir="example/tests"):
+def write_test_file(function_name, test_code, output_dir):
     os.makedirs(output_dir, exist_ok=True)
     test_file_name = f"test_{function_name}.py"
     file_path = os.path.join(output_dir, test_file_name)
 
     with open(file_path, "w") as f:
         f.write(test_code)
-    
+
     print(f"✅ Test written to: {file_path}")
 
 

@@ -8,6 +8,7 @@ from unittest_ai_agent.test_writer import write_test_file, postprocess_test_code
 BASE_DIR = os.path.dirname(__file__)
 FILE_PATH_SAMPLE_FUNCTION = os.path.join(BASE_DIR, "unittest_ai_agent", "example", "converter.py")
 FILE_PATH_PROMPT = os.path.join(BASE_DIR, "unittest_ai_agent", "prompts")
+TEST_DIR_PATH = os.path.join(BASE_DIR, "unittest_ai_agent", "example", "tests")
 
 
 def load_prompt(path):
@@ -20,7 +21,7 @@ def load_prompt(path):
 
 
 def main():
-    print(f"🚀 Initializing test generation for: {FILE_PATH_SAMPLE_FUNCTION}")
+    print(f"🚀 Initializing test generation for: example/converter.py")
 
     imports_code, functions_data = source_code_analysis(FILE_PATH_SAMPLE_FUNCTION)
 
@@ -50,7 +51,7 @@ def main():
         module_name = os.path.splitext(os.path.basename(FILE_PATH_SAMPLE_FUNCTION))[0]
         clean_code = postprocess_test_code(raw_response, function_name, module_name)
 
-        write_test_file(function_name, clean_code)
+        write_test_file(function_name, clean_code, TEST_DIR_PATH)
         print(f"✅ Test code for `{function_name}` generated successfully!\n")
 
     print(f"🚀 All tests generated successfully!")
