@@ -57,24 +57,24 @@ def convert_date_to_iso(date_str: str, format: str = "%d/%m/%Y") -> str:
 
 The agent will generate a suite of pytest tests covering various edge cases and save them to `unittest_ai_agent/example/tests/test_convert_date_to_iso.py`.
 
-## Project Roadmap
+## 🚀 Project Roadmap
 This project is under active development. Below is a summary of our progress and a look at what's ahead. Contributions are highly encouraged!
 
-### Phase 1: Core Test Generation Engine (MVP)
-[x] Develop "Dev Engineer" Agent: A core agent capable of generating unit tests from a single Python source file.
+### ✅ Phase 1: Core Test Generation Engine (MVP)
+[ x ] Develop "Dev Engineer" Agent: A core agent capable of generating unit tests from a single Python source file.
 
-[x] LLM Integration: Connect the agent to a foundational LLM (e.g., GPT-4o, Llama 3) to power code generation.
+[ x ] LLM Integration: Connect the agent to a foundational LLM (e.g., GPT-4o, Llama 3) to power code generation.
 
-[x] Basic CLI: A simple command-line interface to input a file and receive the generated test file.
+[ x ] Basic CLI: A simple command-line interface to input a file and receive the generated test file.
 
-### Phase 2: Multi-Agent Collaboration & Feedback Loop
+### 🎯 Phase 2: Multi-Agent Collaboration & Feedback Loop
 [ ] Introduce "QA Engineer" Agent: Develop a second agent responsible for reviewing, validating, and executing the generated tests.
 
 [ ] Implement Test Execution Tool: Create a secure tool for the QA Agent to programmatically run pytest, capture results, and parse code coverage reports.
 
 [ ] Establish Collaborative Framework (CrewAI): Refactor the agent logic into a Crew to manage the feedback loop, allowing the Dev Agent to fix tests based on the QA Agent's feedback until a target coverage is achieved.
 
-### Phase 3: API-First Architecture & State Management
+### 🏗️ Phase 3: API-First Architecture & State Management
 [ ] Expose via API: Wrap the agent crew in a FastAPI application to make it accessible as a service.
 
 [ ] Job State Management: Integrate Redis or a database to manage the state of long-running jobs, allowing for asynchronous operation.
@@ -82,7 +82,7 @@ This project is under active development. Below is a summary of our progress and
 [ ] Containerization: Create a Dockerfile and docker-compose.yml to ensure a consistent and reproducible environment for the entire application stack.
 
 
-### Future
+### ✨ Future
 [ ] LLMOps & Observability: Integrate with tools like LangSmith to trace, debug, and evaluate the performance of the agent interactions.
 
 [ ] IDE Integration: Develop a VSCode extension for a seamless developer experience right within the editor.
