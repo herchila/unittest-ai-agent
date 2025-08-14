@@ -46,7 +46,6 @@ def main():
 
         print("Sending prompt to LLM...")
         raw_response = generate_test_code(prompt)
-        # clean_code = clean_llm_output(raw_response)
 
         module_name = os.path.splitext(os.path.basename(FILE_PATH_SAMPLE_FUNCTION))[0]
         clean_code = postprocess_test_code(raw_response, function_name, module_name)
