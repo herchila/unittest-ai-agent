@@ -1,4 +1,4 @@
-from converter import convert_date_to_iso
+from unittest_ai_agent.example.converter import convert_date_to_iso
 
 
 def test_convert_date_to_iso():
@@ -74,6 +74,7 @@ def test_convert_date_to_iso_invalid_date_string():
 def test_convert_date_to_iso_invalid_type():
     # Arrange
     date_str = 12345
+
     # Act
     result = convert_date_to_iso(date_str)
 
