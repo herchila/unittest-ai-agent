@@ -6,7 +6,9 @@ from unittest_ai_agent.test_writer import write_test_file, postprocess_test_code
 
 
 BASE_DIR = os.path.dirname(__file__)
-FILE_PATH_SAMPLE_FUNCTION = os.path.join(BASE_DIR, "unittest_ai_agent", "example", "converter.py")
+FILE_PATH_SAMPLE_FUNCTION = os.path.join(
+    BASE_DIR, "unittest_ai_agent", "example", "converter.py"
+)
 FILE_PATH_PROMPT = os.path.join(BASE_DIR, "unittest_ai_agent", "prompts")
 TEST_DIR_PATH = os.path.join(BASE_DIR, "unittest_ai_agent", "example", "tests")
 
@@ -28,22 +30,30 @@ def main():
     if not functions_data:
         print("No functions found in the source file.")
         return
-    
+
     for func_data in functions_data:
         function_name = func_data["function_name"]
         print(f"\nProcessing: `def {function_name}(...)`...")
 
         if func_data["parent_class_code"]:
-            print(f" Parent class found: {func_data['parent_class_code'].splitlines()[0]}")
-            prompt_template = load_prompt(f"{FILE_PATH_PROMPT}/generate_unittest_class.txt")
+            print(
+                f" Parent class found: {func_data['parent_class_code'].splitlines()[0]}"
+            )
+            prompt_template = load_prompt(
+                f"{FILE_PATH_PROMPT}/generate_unittest_class.txt"
+            )
             prompt = prompt_template.replace("{{imports_code}}", imports_code)
             prompt = prompt.replace("{{function_name}}", function_name)
-            prompt = prompt.replace("{{parent_class_code}}", func_data['parent_class_code'])
+            prompt = prompt.replace(
+                "{{parent_class_code}}", func_data["parent_class_code"]
+            )
         else:
             print(f"Standalone function found: {function_name}")
-            prompt_template = load_prompt(f"{FILE_PATH_PROMPT}/generate_unittest_standalone.txt")
+            prompt_template = load_prompt(
+                f"{FILE_PATH_PROMPT}/generate_unittest_standalone.txt"
+            )
             prompt = prompt_template.replace("{{imports_code}}", imports_code)
-            prompt = prompt.replace("{{function_code}}", func_data['function_code'])
+            prompt = prompt.replace("{{function_code}}", func_data["function_code"])
 
         print("Sending prompt to LLM...")
         raw_response = generate_test_code(prompt)
@@ -55,6 +65,7 @@ def main():
         print(f"✅ Test code for `{function_name}` generated successfully!\n")
 
     print("🚀 All tests generated successfully!")
+
 
 if __name__ == "__main__":
     main()
