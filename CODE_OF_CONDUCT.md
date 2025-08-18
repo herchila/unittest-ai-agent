@@ -7,4 +7,4 @@ We follow the Contributor Covenant. By participating, you agree to:
 
 Unacceptable behavior includes harassment, insults, or exclusionary jokes.
 
-**Enforcement:** Report incidents to <security@yourdomain.tld>. We will review and respond within 72 hours.
+**Enforcement:** Report incidents to <hchilabert.en@gmail.com>. We will review and respond within 72 hours.

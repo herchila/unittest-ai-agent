@@ -1,7 +1,7 @@
 # Security Policy
 
 ## Reporting a Vulnerability
-Please email <security@yourdomain.tld> with details and steps to reproduce.
+Please email <hchilabert.en@gmail.com> with details and steps to reproduce.
 We aim to respond within 72 hours and fix high-severity issues as soon as possible.
 
 ## Notes
