@@ -12,6 +12,7 @@ def test_convert_date_to_iso():
     # Assert
     assert result == expected
 
+
 def test_convert_date_to_iso_valid_date_custom_format():
     # Arrange
     date_str = "07-18-2025"
@@ -24,6 +25,7 @@ def test_convert_date_to_iso_valid_date_custom_format():
     # Assert
     assert result == expected
 
+
 def test_convert_date_to_iso_empty_string():
     # Arrange
     date_str = ""
@@ -34,6 +36,7 @@ def test_convert_date_to_iso_empty_string():
     # Assert
     assert result is None
 
+
 def test_convert_date_to_iso_none_input():
     # Arrange
     date_str = None
@@ -43,6 +46,7 @@ def test_convert_date_to_iso_none_input():
 
     # Assert
     assert result is None
+
 
 def test_convert_date_to_iso_invalid_format():
     # Arrange
@@ -55,6 +59,7 @@ def test_convert_date_to_iso_invalid_format():
     # Assert
     assert result is None
 
+
 def test_convert_date_to_iso_invalid_date_string():
     # Arrange
     date_str = "invalid_date"
@@ -65,6 +70,7 @@ def test_convert_date_to_iso_invalid_date_string():
     # Assert
     assert result is None
 
+
 def test_convert_date_to_iso_invalid_type():
     # Arrange
     date_str = 12345
@@ -74,6 +80,7 @@ def test_convert_date_to_iso_invalid_type():
 
     # Assert
     assert result is None
+
 
 def test_convert_date_to_iso_invalid_format_type():
     # Arrange
@@ -86,6 +93,7 @@ def test_convert_date_to_iso_invalid_format_type():
     # Assert
     assert result == "2025-07-18"  # Default format should be used
 
+
 def test_convert_date_to_iso_whitespace_format():
     # Arrange
     date_str = "18/07/2025"
@@ -96,6 +104,7 @@ def test_convert_date_to_iso_whitespace_format():
 
     # Assert
     assert result == "2025-07-18"  # Default format should be used
+
 
 def test_convert_date_to_iso_leap_year():
     # Arrange
