@@ -1,10 +1,15 @@
 name: gitleaks
-
-on: [pull_request]
-
+on:
+  pull_request:
+  push:
 jobs:
   scan:
+    name: gitleaks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # fetch all history so multiple commits can be scanned
       - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
