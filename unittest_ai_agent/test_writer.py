@@ -19,7 +19,7 @@ def postprocess_test_code(test_code: str, function_name: str, module_name: str) 
     - Replaces the module name (your_module → module_name).
     - Replaces the function name if LLM used a different one (detected by regex).
     - Adds optional warning docstring.
-    
+
     Args:
         test_code (str): The generated test code.
         function_name (str): The name of the function being tested.
@@ -57,6 +57,10 @@ def clean_llm_output(text: str) -> str:
 
     # Removes lines at the end that start with 'Make sure' or other clarifications
     lines = text.strip().splitlines()
-    lines = [line for line in lines if not re.match(r"(?i)^make sure|^note|^replace", line.strip())]
+    lines = [
+        line
+        for line in lines
+        if not re.match(r"(?i)^make sure|^note|^replace", line.strip())
+    ]
 
     return "\n".join(lines).strip()

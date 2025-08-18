@@ -8,7 +8,7 @@ def test_convert_date_to_iso():
     
     # Act
     result = convert_date_to_iso(date_str)
-    
+
     # Assert
     assert result == expected_result
 
@@ -20,7 +20,7 @@ def test_convert_date_to_iso_different_format():
     
     # Act
     result = convert_date_to_iso(date_str, format)
-    
+
     # Assert
     assert result == expected_result
 
@@ -38,20 +38,20 @@ def test_convert_date_to_iso_invalid_format():
 def test_convert_date_to_iso_empty_string():
     # Arrange
     date_str = ""
-    
+
     # Act
     result = convert_date_to_iso(date_str)
-    
+
     # Assert
     assert result is None
 
 def test_convert_date_to_iso_none_input():
     # Arrange
     date_str = None
-    
+
     # Act
     result = convert_date_to_iso(date_str)
-    
+
     # Assert
     assert result is None
 
@@ -61,7 +61,7 @@ def test_convert_date_to_iso_invalid_type_integer():
     
     # Act
     result = convert_date_to_iso(date_str)
-    
+
     # Assert
     assert result is None
 
@@ -71,7 +71,7 @@ def test_convert_date_to_iso_invalid_type_list():
     
     # Act
     result = convert_date_to_iso(date_str)
-    
+
     # Assert
     assert result is None
 

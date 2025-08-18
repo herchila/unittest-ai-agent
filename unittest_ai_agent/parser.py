@@ -16,7 +16,7 @@ def source_code_analysis(file_path: str) -> tuple[str, list[dict]]:
     """
     with open(file_path, "r", encoding="utf-8") as f:
         source_code = f.read()
-    
+
     tree = ast.parse(source_code)
 
     # --- Step 1: Extract all imports ---
@@ -26,13 +26,17 @@ def source_code_analysis(file_path: str) -> tuple[str, list[dict]]:
             # ast.unparse converts a node back to source code.
             # This is much more robust than handling line numbers.
             imports.append(ast.unparse(node))
-    
+
     imports_code = "\n".join(imports)
 
     # --- Preparation for finding parent classes ---
     # ast does not keep references to parent nodes, so we create them ourselves
     # to be able to look up the tree from a function.
-    parent_map = {child: parent for parent in ast.walk(tree) for child in ast.iter_child_nodes(parent)}
+    parent_map = {
+        child: parent
+        for parent in ast.walk(tree)
+        for child in ast.iter_child_nodes(parent)
+    }
 
     # --- Step 2 and 3: Extract functions, docstrings, type hints and parent classes ---
     functions_analysis = []
