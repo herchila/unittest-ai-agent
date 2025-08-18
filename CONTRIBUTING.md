@@ -1,7 +1,7 @@
 # Contributing
 
 ## Ground rules
-- Be respectful. Follow our Code of Conduct.
+- Be respectful. Follow our [Code of Conduct](CODE_OF_CONDUCT.md).
 - Small, focused PRs are easiest to review.
 
 ## Workflow

@@ -29,7 +29,7 @@ Unittest AI Agent is a Python tool that automatically generates comprehensive un
    ```
 
 2. **Set your OpenAI API key:**
-   - Create a `.env` file in the project root:
+   - Rename the `.env.example` to `.env`:
      ```
      OPENAI_API_KEY=your_openai_api_key_here
      ```
