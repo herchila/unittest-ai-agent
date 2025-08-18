@@ -21,7 +21,7 @@ def load_prompt(path):
 
 
 def main():
-    print(f"🚀 Initializing test generation for: example/converter.py")
+    print("🚀 Initializing test generation for: example/converter.py")
 
     imports_code, functions_data = source_code_analysis(FILE_PATH_SAMPLE_FUNCTION)
 
@@ -54,7 +54,7 @@ def main():
         write_test_file(function_name, clean_code, TEST_DIR_PATH)
         print(f"✅ Test code for `{function_name}` generated successfully!\n")
 
-    print(f"🚀 All tests generated successfully!")
+    print("🚀 All tests generated successfully!")
 
 if __name__ == "__main__":
     main()
