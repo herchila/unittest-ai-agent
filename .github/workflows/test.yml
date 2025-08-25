@@ -30,7 +30,7 @@ jobs:
         virtualenvs-in-project: true
 
     - name: Install dependencies
-      run: poetry install --only dev
+      run: poetry install
 
     - name: Create coverage directory
       run: mkdir coverage
@@ -72,7 +72,7 @@ jobs:
         virtualenvs-in-project: true
 
     - name: Install dev dependencies
-      run: poetry install --only dev
+      run: poetry install
 
     - name: Download all coverage files
       uses: actions/download-artifact@v4
