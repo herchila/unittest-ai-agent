@@ -1,17 +1,41 @@
 repos:
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.6.8
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
     hooks:
-      - id: ruff
-        args: [--fix]
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+      - id: check-json
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: debug-statements
+      - id: mixed-line-ending
+
   - repo: https://github.com/psf/black
-    rev: 24.8.0
+    rev: 23.7.0
     hooks:
       - id: black
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+        language_version: python3.9
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
     hooks:
-      - id: end-of-file-fixer
-      - id: trailing-whitespace
-      - id: check-merge-conflict
-      - id: check-added-large-files
+      - id: isort
+        args: ["--profile", "black"]
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+        additional_dependencies: [flake8-docstrings]
+        args: ["--max-line-length=88", "--ignore=E203,W503,D202"]
+        exclude: example/
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.5.1
+    hooks:
+      - id: mypy
+        additional_dependencies: [types-requests]
+        args: [--ignore-missing-imports]
+        exclude: example/
