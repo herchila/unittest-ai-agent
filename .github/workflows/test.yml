@@ -37,7 +37,8 @@ jobs:
       run: poetry install
 
     - name: Create coverage directory
-      run: mkdir coverage
+      run: mkdir -p coverage
+      shell: bash
 
     - name: Run tests with coverage
       run: |
@@ -48,6 +49,7 @@ jobs:
           -v
       env:
         COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}
+      shell: bash
 
     - name: Store coverage files
       uses: actions/upload-artifact@v4
@@ -87,11 +89,13 @@ jobs:
 
     - name: Combine coverage reports
       run: poetry run coverage combine coverage
+      shell: bash
 
     - name: Generate coverage report
       run: |
         poetry run coverage report --show-missing
         poetry run coverage html --title "Coverage for ${{ github.sha }}"
+      shell: bash
 
     - name: Store coverage HTML
       uses: actions/upload-artifact@v4
