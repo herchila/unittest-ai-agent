@@ -31,6 +31,7 @@ packages = [{include = "ut", from = "src"}]
 ipdb = "0.13.13"
 pytest = "8.4.1"
 pytest-cov = "^6.2.1"
+coverage = {extras = ["toml"], version = "^7.10.5"}
 
 [tool.pytest.ini_options]
 testpaths = [
@@ -41,6 +42,24 @@ norecursedirs = [
     "example",
     "ut_output",
 ]
+
+[tool.coverage.run]
+source_pkgs = ["ut"]
+branch = true
+parallel = true
+relative_files = true
+
+[tool.coverage.paths]
+source = [
+  "src",
+  "/home/runner/work/*/*/src",            # Ubuntu (GHA)
+  "/Users/runner/work/*/*/src",           # macOS (GHA)
+  "D:\\a\\*\\*\\src"                      # Windows (GHA)
+]
+
+[tool.coverage.report]
+show_missing = true
+omit = ["*/__init__.py"]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

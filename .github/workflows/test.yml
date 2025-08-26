@@ -41,12 +41,14 @@ jobs:
       shell: bash
 
     - name: Run tests with coverage
+      # run: |
+      #   poetry run pytest \
+      #     --cov=ut \
+      #     --cov-report= \
+      #     --cov-branch \
+      #     -v
       run: |
-        poetry run pytest \
-          --cov=ut \
-          --cov-report= \
-          --cov-branch \
-          -v
+        poetry run pytest --cov --cov-branch -v
       env:
         COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}
       shell: bash
@@ -88,12 +90,12 @@ jobs:
         merge-multiple: true
 
     - name: Combine coverage reports
-      run: poetry run coverage combine coverage
+      run: poetry run coverage combine coverage -rcfile=pyproject.toml
       shell: bash
 
     - name: Generate coverage report
       run: |
-        poetry run coverage report --show-missing --omit="*/__init__.py"
+        poetry run coverage report
         poetry run coverage html --title "Coverage for ${{ github.sha }}"
       shell: bash
 
