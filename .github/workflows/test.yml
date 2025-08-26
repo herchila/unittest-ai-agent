@@ -90,7 +90,7 @@ jobs:
         merge-multiple: true
 
     - name: Combine coverage reports
-      run: poetry run coverage combine coverage -rcfile=pyproject.toml
+      run: poetry run coverage combine coverage
       shell: bash
 
     - name: Generate coverage report
