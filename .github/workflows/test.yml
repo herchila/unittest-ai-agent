@@ -93,7 +93,7 @@ jobs:
 
     - name: Generate coverage report
       run: |
-        poetry run coverage report --show-missing
+        poetry run coverage report --show-missing --omit="*/__init__.py"
         poetry run coverage html --title "Coverage for ${{ github.sha }}"
       shell: bash
 
