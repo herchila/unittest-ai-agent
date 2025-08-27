@@ -278,3 +278,6 @@ astra_platform/media/
 !.envs/.local/
 
 ssh_keys/
+
+ut_output/
+.ut_output/

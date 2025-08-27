@@ -1,0 +1,66 @@
+[project]
+name = "ut"
+version = "0.1.0"
+description = "Automated Unit Test Generation CLI with AI"
+authors = [
+    {name = "Hernan Chilabert",email = "hchilabert@gmail.com"}
+]
+license = {text = "Apache 2.0"}
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "python-dotenv>=1.1.1",
+    "openai>=1.100.2",
+    "typer[all]>=0.16.1",
+    "rich>=14.1.0"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+[tool.poetry.scripts]
+ut = "ut.cli.main:app"
+
+[tool.poetry]
+packages = [{include = "ut", from = "src"}]
+
+[tool.poetry.group.dev.dependencies]
+ipdb = "0.13.13"
+pytest = "8.4.1"
+pytest-cov = "^6.2.1"
+coverage = {extras = ["toml"], version = "^7.10.5"}
+
+[tool.pytest.ini_options]
+testpaths = [
+    "src/ut",
+    "tests",
+]
+norecursedirs = [
+    "example",
+    "ut_output",
+]
+
+[tool.coverage.run]
+source_pkgs = ["ut"]
+branch = true
+parallel = true
+relative_files = true
+
+[tool.coverage.paths]
+source = [
+  "src",
+  "/home/runner/work/*/*/src",            # Ubuntu (GHA)
+  "/Users/runner/work/*/*/src",           # macOS (GHA)
+  "D:\\a\\*\\*\\src"                      # Windows (GHA)
+]
+
+[tool.coverage.report]
+show_missing = true
+omit = ["*/__init__.py"]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

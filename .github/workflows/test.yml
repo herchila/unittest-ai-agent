@@ -1,0 +1,118 @@
+name: Test and Coverage
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        python-version: [ "3.9", "3.10", "3.11", "3.12" ]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Add Poetry to PATH (Windows)
+      if: runner.os == 'Windows'
+      run: echo "$env:USERPROFILE\.local\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        virtualenvs-in-project: true
+
+    - name: Install dependencies
+      run: poetry install
+
+    - name: Create coverage directory
+      run: mkdir -p coverage
+      shell: bash
+
+    - name: Run tests with coverage
+      # run: |
+      #   poetry run pytest \
+      #     --cov=ut \
+      #     --cov-report= \
+      #     --cov-branch \
+      #     -v
+      run: |
+        poetry run pytest --cov --cov-branch -v
+      env:
+        COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}
+      shell: bash
+
+    - name: Store coverage files
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-${{ runner.os }}-${{ matrix.python-version }}
+        path: coverage
+        include-hidden-files: true
+
+  coverage-combine:
+    # Only runs after all jobs in 'test' have completed
+    needs: [test]
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        virtualenvs-in-project: true
+
+    - name: Install dev dependencies
+      run: poetry install
+
+    - name: Download all coverage files
+      uses: actions/download-artifact@v4
+      with:
+        pattern: coverage-*
+        path: coverage
+        merge-multiple: true
+
+    - name: Combine coverage reports
+      run: poetry run coverage combine coverage
+      shell: bash
+
+    - name: Generate coverage report
+      run: |
+        poetry run coverage report
+        poetry run coverage html --title "Coverage for ${{ github.sha }}"
+      shell: bash
+
+    - name: Store coverage HTML
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-html
+        path: htmlcov
+
+  check:
+    # Final job that verifies all previous jobs have passed
+    if: always()
+    needs: [coverage-combine]
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Verify all jobs succeeded
+      uses: re-actors/alls-green@release/v1
+      with:
+        jobs: ${{ toJSON(needs) }}

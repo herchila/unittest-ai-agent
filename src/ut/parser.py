@@ -1,9 +1,10 @@
+"""Automated Unit Test Generation CLI with AI."""
 import ast
 
 
 def source_code_analysis(file_path: str) -> tuple[str, list[dict]]:
-    """
-    Analyze a Python source file and extract import statements and detailed information about each function.
+    """Analyze a Python source file and extract import statements \
+    and detailed information about each function.
 
     Args:
         file_path: The path to the .py file to analyze.
@@ -12,8 +13,10 @@ def source_code_analysis(file_path: str) -> tuple[str, list[dict]]:
         A tuple containing:
         - A string with all the import statements found.
         - A list of dictionaries, where each dictionary represents a function
-        and contains its name, full source code, and the code of its parent class (if it exists).
+        and contains its name, full source code,
+        and the code of its parent class (if it exists).
     """
+
     with open(file_path, "r", encoding="utf-8") as f:
         source_code = f.read()
 

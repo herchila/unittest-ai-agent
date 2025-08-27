@@ -1,11 +1,10 @@
+"""Automated Unit Test Generation CLI with AI."""
 import os
-from openai import OpenAI
+
 from dotenv import load_dotenv
+from openai import OpenAI
 
 load_dotenv()
-api_key = os.getenv("OPENAI_API_KEY")
-
-client = OpenAI(api_key=api_key)
 
 
 def generate_test_code(prompt: str) -> str:
@@ -18,10 +17,14 @@ def generate_test_code(prompt: str) -> str:
         str: The generated test code.
     """
 
+    api_key = os.getenv("OPENAI_API_KEY")
+    client = OpenAI(api_key=api_key)
+
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.3,
         max_tokens=600,
     )
+
     return response.choices[0].message.content
