@@ -1,7 +1,12 @@
 # Automated Unit Test Generation CLI with AI
 
-[![Test and Coverage](https://github.com/herchila/unittest-ai-agent/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/herchila/unittest-ai-agent/actions/workflows/test.yml)
+[![Tests](https://github.com/herchila/unittest-ai-agent/actions/workflows/test.yml/badge.svg)](https://github.com/herchila/unittest-ai-agent/actions/workflows/test.yml)
+[![Coverage](https://github.com/herchila/unittest-ai-agent/actions/workflows/coverage.yml/badge.svg)](https://github.com/herchila/unittest-ai-agent/actions/workflows/coverage.yml)
 [![gitleaks](https://github.com/herchila/unittest-ai-agent/actions/workflows/gitleaks.yml/badge.svg)](https://github.com/herchila/unittest-ai-agent/actions/workflows/gitleaks.yml)
+
+[![Python Version](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/release/python-390/)
+[![Poetry Version](https://img.shields.io/badge/poetry-2.1.3%2B-blue.svg)](https://python-poetry.org/)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 Unittest AI Agent is a Python tool that automatically generates comprehensive unit tests for your Python functions and classes using OpenAI's GPT models. It analyzes your source code, prepares context-rich prompts, and writes robust pytest-based test suites.
 
