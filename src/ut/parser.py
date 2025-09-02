@@ -1,5 +1,6 @@
 """Automated Unit Test Generation CLI with AI."""
 import ast
+from pathlib import Path
 
 
 def source_code_analysis(file_path: str) -> tuple[str, list[dict]]:
@@ -63,3 +64,34 @@ def source_code_analysis(file_path: str) -> tuple[str, list[dict]]:
             functions_analysis.append(analysis)
 
     return imports_code, functions_analysis
+
+
+def calculate_import_path_simple(file_path: Path) -> str:
+    """Generate a reasonable import path for the module.
+
+    Users will need to adjust this in their actual test files.
+
+    Args:
+        file_path (Path): The path to the file for which to generate the import path.
+
+    Returns:
+        str: The calculated import path.
+    """
+
+    # Try to make a reasonable guess at the import path
+    parts: list[str] = []
+    current = file_path.parent
+
+    # Walk up until we find a reasonable root (has __init__.py or is a common root)
+    while current.name and (current / "__init__.py").exists():
+        parts.insert(0, current.name)
+        current = current.parent
+
+    # Add the module name
+    parts.append(file_path.stem)
+
+    # If we found no package structure, just use the module name
+    if len(parts) == 1:
+        return file_path.stem
+
+    return ".".join(parts)
