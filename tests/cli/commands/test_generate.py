@@ -13,7 +13,7 @@ def test_generate_happy_path_file(tmp_path):
 
     # Act
     with patch("ut.cli.commands.generate.typer.confirm", return_value=True), patch(
-        "ut.cli.commands.generate.generate_test_code"
+        "ut.llm_client.generate_test_code"
     ), patch("ut.cli.commands.generate.process_file") as mock_process, patch(
         "ut.cli.commands.generate.console"
     ), patch(
