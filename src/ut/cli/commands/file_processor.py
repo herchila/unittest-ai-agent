@@ -53,10 +53,9 @@ def process_file(
             return
 
         if not functions_data:
-            if verbose:
-                console.print(
-                    f"[yellow]No functions found in {file_path.name}[/yellow]"
-                )
+            verbose_print(
+                f"[yellow]No functions found in {file_path.name}[/yellow]", verbose
+            )
             return
 
         # Determine output directory
