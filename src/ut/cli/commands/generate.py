@@ -80,7 +80,7 @@ def generate(
             if not typer.confirm("Continue and potentially overwrite existing files?"):
                 raise typer.Exit(0)
 
-    is_not_python_file = path.is_file() and not path.suffix == ".py"
+    is_not_python_file = path.is_file() and path.suffix != ".py"
 
     if is_not_python_file:
         console.print(f"[bold red]Error: {path} is not a Python file[/bold red]")

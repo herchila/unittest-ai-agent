@@ -30,5 +30,5 @@ def generate_standalone_prompt(imports_code: str, function_code: str) -> str:
 
     prompt_template = _load_prompt("generate_unittest_standalone.txt")
     prompt = prompt_template.replace("{{imports_code}}", imports_code)
-    prompt = prompt_template.replace("{{function_code}}", function_code)
+    prompt = prompt.replace("{{function_code}}", function_code)
     return prompt
