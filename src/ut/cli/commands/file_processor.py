@@ -6,7 +6,6 @@ from rich.console import Console
 
 from ut.cli.commands.constants import DEF_TEST_STRING
 from ut.cli.commands.helper import verbose_log, verbose_print
-from ut.llm_client import generate_test_code
 from ut.parser import calculate_import_path_simple, source_code_analysis
 from ut.prompts.prompt_builder import (
     generate_class_method_prompt,
@@ -28,6 +27,7 @@ def process_file(
     verbose: bool,
     dry_run: bool,
     base_path: Optional[Path] = None,
+    llm_provider=None,
 ):
     """Process a single Python file to generate tests.
 
@@ -38,8 +38,22 @@ def process_file(
         verbose (bool): Whether to print verbose output.
         dry_run (bool): Whether to perform a dry run (no file modifications).
         base_path (Optional[Path], optional): The base directory for the source files.
-        Defaults to None.
+            Defaults to None.
+        llm_provider: LLM provider instance for generating tests.
     """
+
+    # Create a default provider if none is provided
+    if not llm_provider:
+        from ut.config import Config
+        from ut.llm.factory import create_llm_provider
+        
+        config_manager = Config()
+        llm_config = config_manager.get_llm_config()
+        llm_provider = create_llm_provider(llm_config)
+        
+        if verbose:
+            console.print(f"[dim]Using default LLM: {llm_config.provider}/{llm_config.model}[/dim]")
+    
     verbose_log(f"Extracting imports and functions from {file_path.name}", verbose)
 
     with console.status(
@@ -82,8 +96,8 @@ def process_file(
             function_name = func_data["function_name"]
 
             verbose_log(
-                f"\n  → Processing function {i + 1}/{len(functions_data)}: \
-                            [cyan]{function_name}[/cyan]",
+                f"\n  → Processing function {i + 1}/{len(functions_data)}: "
+                f"[cyan]{function_name}[/cyan]",
                 verbose,
             )
 
@@ -105,7 +119,13 @@ def process_file(
             verbose_log("    Sending to LLM...", verbose)
 
             if not dry_run:
-                raw_response = generate_test_code(prompt)
+                try:
+                    raw_response = llm_provider.generate_test_code(prompt)
+                except Exception as e:
+                    console.print(
+                        f"    ⚠️ LLM error for [yellow]{function_name}[/yellow]: {e}"
+                    )
+                    continue
 
                 clean_code = postprocess_test_code_enhanced(
                     raw_response, function_name, module_import_path, file_path.stem
@@ -121,13 +141,13 @@ def process_file(
                     all_imports.update(test_imports)
                     all_test_functions.extend(valid_functions)
                     console.print(
-                        f"    ✓ Generated {len(valid_functions)} \
-                            test(s) for [green]{function_name}[/green]"
+                        f"    ✓ Generated {len(valid_functions)} "
+                        f"test(s) for [green]{function_name}[/green]"
                     )
                 else:
                     console.print(
-                        f"    ⚠️ No valid tests generated for \
-                                  [yellow]{function_name}[/yellow]"
+                        f"    ⚠️ No valid tests generated for "
+                        f"[yellow]{function_name}[/yellow]"
                     )
             else:
                 console.print(f"    [dim]Would generate test for {function_name}[/dim]")
@@ -147,7 +167,7 @@ def process_file(
 
             rel_test_path = test_file_path.relative_to(output_base)
             console.print(
-                f"\n  📄 Test file created: [bold green]\
-                {output_base}/{rel_test_path}[/bold green]"
+                f"\n  📄 Test file created: [bold green]"
+                f"{output_base}/{rel_test_path}[/bold green]"
             )
             console.print(f"     Contains {len(all_test_functions)} test functions")
