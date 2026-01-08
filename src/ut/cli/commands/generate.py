@@ -36,7 +36,6 @@ def generate(
         "--mirror/--flat",
         help="Mirror source directory structure in output (default: mirror)",
     ),
-    # NUEVAS OPCIONES (solo agregar estas):
     provider: Optional[str] = typer.Option(
         None,
         "--provider",
@@ -79,7 +78,6 @@ def generate(
     # Clean up temporary files
     clean_temp_files(verbose=False)
 
-    # NUEVO: Configurar el LLM provider
     from ut.config import Config
     from ut.llm.factory import create_llm_provider
     
@@ -93,7 +91,6 @@ def generate(
     if verbose:
         console.print(f"[dim]Using LLM: {llm_config.provider}/{llm_config.model}[/dim]")
 
-    # TODO TU CÓDIGO EXISTENTE DESDE AQUÍ (sin cambios)
     if not file_path:
         console.print("[bold red]Error: The file path cannot be empty.[/bold red]")
         raise typer.Exit(code=1)
@@ -124,7 +121,6 @@ def generate(
 
     if path.is_file():
         console.print(f"[bold blue]Processing single file: {path.name}[/bold blue]")
-        # CAMBIO: Pasar el llm_provider a process_file
         process_file(path, output_base, mirror_structure, verbose, dry_run, 
                     llm_provider=llm_provider)
 

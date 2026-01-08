@@ -49,7 +49,7 @@ class Config:
     
     def _merge_config(self, new_config: Dict):
         """Deep merge configuration."""
-        # Implementación simple, podrías usar bibliotecas como deepmerge
+        # TODO: Implement deepmerge
         if new_config:
             for key, value in new_config.items():
                 if isinstance(value, dict) and key in self._config:
@@ -61,11 +61,13 @@ class Config:
         """Override with environment variables."""
         if os.getenv("UT_PROVIDER"):
             self._config["llm"]["provider"] = os.getenv("UT_PROVIDER")
+
         if os.getenv("UT_MODEL"):
             self._config["llm"]["model"] = os.getenv("UT_MODEL")
-        # API keys siempre desde env por seguridad
+
         if os.getenv("OPENAI_API_KEY"):
             self._config.setdefault("openai", {})["api_key"] = os.getenv("OPENAI_API_KEY")
+
         if os.getenv("ANTHROPIC_API_KEY"):
             self._config.setdefault("anthropic", {})["api_key"] = os.getenv("ANTHROPIC_API_KEY")
     

@@ -27,7 +27,7 @@ def process_file(
     verbose: bool,
     dry_run: bool,
     base_path: Optional[Path] = None,
-    llm_provider=None,  # NUEVO: Agregar el provider como parámetro
+    llm_provider=None,
 ):
     """Process a single Python file to generate tests.
 
@@ -39,7 +39,7 @@ def process_file(
         dry_run (bool): Whether to perform a dry run (no file modifications).
         base_path (Optional[Path], optional): The base directory for the source files.
             Defaults to None.
-        llm_provider: LLM provider instance for generating tests. # NUEVO
+        llm_provider: LLM provider instance for generating tests.
     """
 
     # Create a default provider if none is provided
