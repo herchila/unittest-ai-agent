@@ -36,6 +36,25 @@ def generate(
         "--mirror/--flat",
         help="Mirror source directory structure in output (default: mirror)",
     ),
+    # NUEVAS OPCIONES (solo agregar estas):
+    provider: Optional[str] = typer.Option(
+        None,
+        "--provider",
+        "-p",
+        help="LLM provider (openai, anthropic, ollama). Defaults to config file or env vars"
+    ),
+    model: Optional[str] = typer.Option(
+        None,
+        "--model",
+        "-m", 
+        help="Model name (e.g., gpt-4, claude-3-sonnet, codellama)"
+    ),
+    config_file: Optional[str] = typer.Option(
+        None,
+        "--config",
+        "-c",
+        help="Path to custom config file (default: .ut.yaml or ~/.config/ut/config.yaml)"
+    ),
 ) -> None:
     """
     Generate unit tests for Python files in any Python project.
@@ -50,6 +69,8 @@ def generate(
         ut generate src/  # All files in src/ -> ut_output/src/...
         ut generate . --output tests/  # Custom output directory
         ut generate src/ --flat  # All tests in ut_output/ without subdirs
+        ut generate file.py --provider anthropic  # Use Claude
+        ut generate file.py --model gpt-3.5-turbo  # Use specific model
 
     After generation, review the tests in ut_output/ and move them to your
     project's test directory as needed.
@@ -58,6 +79,21 @@ def generate(
     # Clean up temporary files
     clean_temp_files(verbose=False)
 
+    # NUEVO: Configurar el LLM provider
+    from ut.config import Config
+    from ut.llm.factory import create_llm_provider
+    
+    config_manager = Config()
+    if config_file:
+        config_manager.load_file(config_file)
+    
+    llm_config = config_manager.get_llm_config(provider, model)
+    llm_provider = create_llm_provider(llm_config)
+    
+    if verbose:
+        console.print(f"[dim]Using LLM: {llm_config.provider}/{llm_config.model}[/dim]")
+
+    # TODO TU CÓDIGO EXISTENTE DESDE AQUÍ (sin cambios)
     if not file_path:
         console.print("[bold red]Error: The file path cannot be empty.[/bold red]")
         raise typer.Exit(code=1)
@@ -88,7 +124,9 @@ def generate(
 
     if path.is_file():
         console.print(f"[bold blue]Processing single file: {path.name}[/bold blue]")
-        process_file(path, output_base, mirror_structure, verbose, dry_run)
+        # CAMBIO: Pasar el llm_provider a process_file
+        process_file(path, output_base, mirror_structure, verbose, dry_run, 
+                    llm_provider=llm_provider)
 
     elif path.is_dir():
         console.print(
